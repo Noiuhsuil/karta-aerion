@@ -1,12 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Карта мира Аэрион</title>
-    <!-- Подключаем стили Leaflet (обязательно) -->
+    <title>Aerion Map</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
-        /* Убираем отступы и делаем карту на весь экран */
         html, body {
             margin: 0;
             padding: 0;
@@ -15,35 +13,36 @@
         #map {
             height: 100%;
             width: 100%;
+            background: #2b2b2b;
         }
     </style>
 </head>
 <body>
     <div id="map"></div>
-
-    <!-- Подключаем библиотеку Leaflet -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-    <!-- Сам скрипт для карты -->
     <script>
-        // Создаём карту в режиме "картинка"
+        var imageWidth = 1652;
+        var imageHeight = 952;
+        var bounds = [[0, 0], [imageHeight, imageWidth]];
+
         var map = L.map('map', {
             crs: L.CRS.Simple,
-            minZoom: 0.5,
-            maxZoom: 4
+            zoomControl: false,
+            scrollWheelZoom: false,
+            doubleClickZoom: false,
+            touchZoom: false,
+            boxZoom: false,
+            keyboard: false,
+            zoom: 0.7,
+            minZoom: 0.7,
+            maxZoom: 0.7
         });
 
-        // Размеры вашей картинки (1652x952)
-        var bounds = [[0, 0], [952, 1652]];
-
-        // Загружаем картинку (имя файла должно точно совпадать)
         L.imageOverlay('Aerion.jpg', bounds).addTo(map);
+        map.setView([imageHeight / 2, imageWidth / 2], 0.7);
 
-        // Подгоняем масштаб под картинку
-        map.fitBounds(bounds);
-
-        // Добавляем тестовую метку в центр (можете удалить или заменить)
-        L.marker([476, 826]).addTo(map).bindPopup('Добро пожаловать в Аэрион!');
+        // Markers
+        L.marker([476, 826]).addTo(map).bindPopup('Center');
     </script>
 </body>
 </html>
